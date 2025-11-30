@@ -1,0 +1,331 @@
+type Query {
+    # User Queries
+    me: User
+    user(id: ID!): User
+    
+    # Family Tree Queries
+    familyTree(id: ID!): FamilyTree
+    familyTrees: [FamilyTree!]!
+    persons(familyTreeId: ID!): [Person!]!
+    person(id: ID!): Person
+    relationships(personId: ID!, familyTreeId: ID!): [Relationship!]!
+    searchPersons(familyTreeId: ID!, keyword: String): [Person!]!
+    searchEvents(familyTreeId: ID!, keyword: String, fromDate: String, toDate: String): [Event!]!
+    
+    # Event Queries
+    events(familyTreeId: ID!): [Event!]!
+    upcomingEvents(familyTreeId: ID!, days: Int): [Event!]!
+    event(id: ID!): Event
+    
+    # Media Queries
+    media(familyTreeId: ID!): [MediaFile!]!
+    mediaByPerson(personId: ID!): [MediaFile!]!
+    album(id: ID!): Album
+    albums(familyTreeId: ID!): [Album!]!
+}
+
+type Mutation {
+    # Authentication Mutations
+    register(input: RegisterInput!): AuthResponse!
+    login(input: LoginInput!): AuthResponse!
+    
+    # Family Tree Mutations
+    createFamilyTree(input: CreateFamilyTreeInput!): FamilyTree!
+    createPerson(input: CreatePersonInput!): Person!
+    createRelationship(input: CreateRelationshipInput!): Relationship!
+    updatePerson(id: ID!, input: UpdatePersonInput!): Person!
+    deletePerson(id: ID!): Boolean!
+    
+    # Event Mutations
+    createEvent(input: CreateEventInput!): Event!
+    updateEvent(id: ID!, input: UpdateEventInput!): Event!
+    deleteEvent(id: ID!): Boolean!
+    addEventParticipant(eventId: ID!, personId: ID!): EventParticipant!
+    
+    # Media Mutations
+    uploadMedia(input: UploadMediaInput!): MediaFile!
+    createAlbum(input: CreateAlbumInput!): Album!
+    deleteMedia(id: ID!): Boolean!
+}
+
+# ============ INPUT TYPES ============
+
+input RegisterInput {
+    username: String!
+    email: String!
+    password: String!
+    fullName: String
+    phone: String
+}
+
+input LoginInput {
+    emailOrUsername: String!
+    password: String!
+}
+
+input CreateFamilyTreeInput {
+    name: String!
+    description: String
+    isPublic: Boolean
+}
+
+input CreatePersonInput {
+    familyTreeId: ID!
+    userId: ID
+    fullName: String!
+    gender: Gender!
+    dateOfBirth: String
+    dateOfDeath: String
+    placeOfBirth: String
+    placeOfDeath: String
+    isAlive: Boolean
+    biography: String
+    avatarUrl: String
+    occupation: String
+    generationLevel: Int
+}
+
+input UpdatePersonInput {
+    fullName: String
+    gender: Gender
+    dateOfBirth: String
+    dateOfDeath: String
+    placeOfBirth: String
+    placeOfDeath: String
+    isAlive: Boolean
+    biography: String
+    avatarUrl: String
+    occupation: String
+    generationLevel: Int
+}
+
+input CreateRelationshipInput {
+    familyTreeId: ID!
+    personId: ID!
+    relatedPersonId: ID!
+    relationshipType: RelationshipType!
+    marriageDate: String
+    divorceDate: String
+    notes: String
+}
+
+input CreateEventInput {
+    familyTreeId: ID
+    personId: ID
+    eventTypeId: ID!
+    title: String!
+    description: String
+    eventDate: String!
+    eventTime: String
+    isRecurring: Boolean
+    recurrenceRule: String
+    location: String
+    isLunarCalendar: Boolean
+    reminderDays: Int
+}
+
+input UpdateEventInput {
+    title: String
+    description: String
+    eventDate: String
+    eventTime: String
+    location: String
+    reminderDays: Int
+}
+
+input UploadMediaInput {
+    familyTreeId: ID!
+    personId: ID
+    fileName: String!
+    originalFileName: String!
+    fileType: String!
+    fileSize: Int!
+    cloudStorageUrl: String!
+    thumbnailUrl: String
+    description: String
+    albumId: ID
+    tags: [String!]
+}
+
+input CreateAlbumInput {
+    familyTreeId: ID!
+    name: String!
+    description: String
+    coverImageId: ID
+    tags: [String!]
+}
+
+# ============ OUTPUT TYPES ============
+
+type User {
+    id: ID!
+    username: String!
+    email: String!
+    fullName: String
+    phone: String
+    avatarUrl: String
+    status: UserStatus!
+    roles: [String!]!
+    createdAt: String!
+    lastLogin: String
+}
+
+type AuthResponse {
+    token: String!
+    type: String!
+    user: User!
+}
+
+type FamilyTree {
+    id: ID!
+    name: String!
+    description: String
+    rootPersonId: ID
+    creatorUserId: ID!
+    isPublic: Boolean!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Person {
+    id: ID!
+    familyTreeId: ID!
+    userId: ID
+    fullName: String!
+    gender: Gender!
+    dateOfBirth: String
+    dateOfDeath: String
+    placeOfBirth: String
+    placeOfDeath: String
+    isAlive: Boolean!
+    biography: String
+    avatarUrl: String
+    occupation: String
+    generationLevel: Int!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Relationship {
+    id: ID!
+    familyTreeId: ID!
+    personId: ID!
+    relatedPersonId: ID!
+    relationshipType: RelationshipType!
+    marriageDate: String
+    divorceDate: String
+    notes: String
+    createdAt: String!
+    person: Person
+    relatedPerson: Person
+}
+
+type Event {
+    id: ID!
+    familyTreeId: ID
+    personId: ID
+    eventTypeId: ID!
+    eventType: EventType
+    title: String!
+    description: String
+    eventDate: String!
+    eventTime: String
+    isRecurring: Boolean!
+    recurrenceRule: String
+    location: String
+    isLunarCalendar: Boolean!
+    reminderDays: Int!
+    createdByUserId: ID!
+    createdAt: String!
+    updatedAt: String!
+    participants: [EventParticipant!]
+}
+
+type EventType {
+    id: ID!
+    name: String!
+    colorCode: String
+    icon: String
+}
+
+type EventParticipant {
+    id: ID!
+    eventId: ID!
+    personId: ID!
+    rsvpStatus: RsvpStatus!
+    respondedAt: String
+    person: Person
+}
+
+type MediaFile {
+    id: ID!
+    familyTreeId: ID!
+    personId: ID
+    uploadedByUserId: ID!
+    fileName: String!
+    originalFileName: String!
+    fileType: String!
+    fileSize: Int!
+    cloudStorageUrl: String!
+    thumbnailUrl: String
+    description: String
+    tags: [String!]!
+    albumId: ID
+    isPublic: Boolean!
+    viewCount: Int!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Album {
+    id: ID!
+    familyTreeId: ID!
+    name: String!
+    description: String
+    coverImageId: ID
+    createdByUserId: ID!
+    mediaCount: Int!
+    isPublic: Boolean!
+    tags: [String!]!
+    createdAt: String!
+    updatedAt: String!
+}
+
+# ============ ENUMS ============
+
+enum UserStatus {
+    ACTIVE
+    INACTIVE
+    SUSPENDED
+}
+
+enum Gender {
+    MALE
+    FEMALE
+    OTHER
+}
+
+enum RelationshipType {
+    FATHER
+    MOTHER
+    SON
+    DAUGHTER
+    SPOUSE
+    SIBLING
+    GRANDFATHER
+    GRANDMOTHER
+    GRANDSON
+    GRANDDAUGHTER
+    UNCLE
+    AUNT
+    NEPHEW
+    NIECE
+}
+
+enum RsvpStatus {
+    PENDING
+    ACCEPTED
+    DECLINED
+    MAYBE
+}
+
