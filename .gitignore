@@ -1,0 +1,252 @@
+# ============================================
+# RelativesHelp Project - Git Ignore
+# ============================================
+
+# ============================================
+# Sensitive Files & Configuration
+# ============================================
+# Application configuration files with secrets
+**/application*.yml
+!**/application*.yml.example
+!**/application*.yml.template
+**/application*.properties
+!**/application*.properties.example
+**/.env
+**/.env.local
+**/.env.*.local
+**/secrets/
+**/credentials/
+
+# ============================================
+# Backend (Java/Spring Boot)
+# ============================================
+# Maven
+**/target/
+**/.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+logs/
+**/logs/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ============================================
+# Frontend (React/Node.js)
+# ============================================
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build outputs
+dist/
+dist-ssr/
+build/
+*.local
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vite
+.vite/
+vite.config.js.timestamp-*
+
+# ============================================
+# IDE & Editor Files
+# ============================================
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ============================================
+# OS Files
+# ============================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ============================================
+# Database & Data Files
+# ============================================
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Backup files
+*.backup
+*.bak
+*.sql.bak
+
+# ============================================
+# Docker
+# ============================================
+# Docker volumes and data
+docker-data/
+docker-volumes/
+*.dockerignore.local
+
+# ============================================
+# Testing & Coverage
+# ============================================
+# Test coverage
+coverage/
+*.lcov
+.nyc_output/
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# ============================================
+# Temporary Files
+# ============================================
+*.tmp
+*.temp
+*.cache
+.cache/
+tmp/
+temp/
+
+# ============================================
+# MinIO & Media Files (if storing locally)
+# ============================================
+# Local media storage (if not using cloud)
+# Uncomment if storing media files locally
+# media/
+# uploads/
+# static/uploads/
+
+# ============================================
+# Elasticsearch
+# ============================================
+# Elasticsearch data
+**/elasticsearch-data/
+**/es-data/
+
+# ============================================
+# Kafka
+# ============================================
+# Kafka logs and data
+**/kafka-logs/
+**/zookeeper-data/
+
+# ============================================
+# Redis
+# ============================================
+# Redis dump files
+dump.rdb
+*.rdb
+
+# ============================================
+# Other
+# ============================================
+# Spring Boot
+.springBeans
+.sts4-cache
+
+# Gradle (if used)
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Maven wrapper (keep wrapper, ignore jar)
+.mvn/wrapper/maven-wrapper.jar
+
+# Package manager lock files (optional - uncomment if you want to ignore)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+

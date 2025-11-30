@@ -1,0 +1,69 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Sensitive Configuration Files ###
+# Application configuration files with secrets
+**/application*.yml
+!**/application*.yml.example
+!**/application*.yml.template
+**/application*.properties
+!**/application*.properties.example
+**/.env
+**/.env.local
+**/.env.*.local
+**/secrets/
+**/credentials/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+*.code-workspace
+
+### Logs ###
+*.log
+logs/
+**/logs/
+
+### Compiled Files ###
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+### OS Files ###
+.DS_Store
+Thumbs.db
+*.swp
+*~
